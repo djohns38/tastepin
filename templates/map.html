@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+| Map
+{% endblock %}
+
+{% block main %}
+<div class="row">
+  <div class="col-md-8">
+    <div id="map" style="height: 500px;"></div>
+  </div>
+  <div class="col-md-4">
+    <h3>Your Pins</h3>
+    <ul id="visibleRestaurants" class="list-group"></ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var map = L.map('map').setView([40.7497, -73.9712], 12);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© TastePin'
+  }).addTo(map);
+
+  var locations = JSON.parse('{{ urls | tojson | safe }}');
+  var markers = [];
+
+  locations.forEach(function(location) {
+    var latLng = [location.latitude, location.longitude];
+    var popupContent = `<strong>${location.name}</strong><br/>${location.cuisine}<br/>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=${location.latitude},${location.longitude}" target="_blank" rel="noopener noreferrer">Directions on Google Maps</a><br/>
+      <a href="http://maps.apple.com/?daddr=${location.latitude},${location.longitude}" target="_blank" rel="noopener noreferrer">Directions on Apple Maps</a>`;
+
+    var marker = L.marker(latLng).bindPopup(popupContent);
+    markers.push({marker: marker, data: location});
+    marker.addTo(map);
+  });
+
+  function updateVisibleList() {
+    var visibleRestaurants = document.getElementById('visibleRestaurants');
+    visibleRestaurants.innerHTML = ''; // Clear the current list
+
+    markers.forEach(function(item) {
+      if (map.getBounds().contains(item.marker.getLatLng())) {
+        var li = document.createElement('li');
+        li.className = 'list-group-item';
+        li.textContent = `${item.data.name} - ${item.data.cuisine}`;
+        visibleRestaurants.appendChild(li);
+      }
+    });
+  }
+
+  map.on('moveend', updateVisibleList);
+  updateVisibleList(); // Update list on initial load
+
+</script>
+{% endblock %}

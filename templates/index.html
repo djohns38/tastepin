@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+| Add Pin
+{% endblock %}
+
+{% block main %}
+<div class="index">
+    <div class="left-index">
+        <img src="static/phone.png" alt="iPhone">
+    </div>
+    <div class="right-index">
+        <div class="content">
+            <h2 class="hero">All Your Saved Eats, All On One Map</h2>
+            <h1 class="subhero">Upload the URL of the recommendation video to add a new pin</h1>
+            <form action="{{ url_for('index') }}" method="post" id="reelForm">
+                <div class="input-icon">
+                    <input type="text" name="url" id="url" placeholder="https://www.instagram.com/reel/" autocomplete="off">
+                    <button type="submit" class="btn btn-circle">+</button>
+                </div>
+            </form>
+        
+            {% if submitted_url %}
+                <div class="alert alert-info mt-3">Submitted URL: {{ submitted_url }}</div>
+            {% endif %}
+        
+            {% if error_message %}
+                <div class="alert alert-danger mt-3">{{ error_message }}</div>
+            {% endif %}
+    
+            <div class="loadingMessage" id="loadingMessage" style="display:none;">
+                <img class="throbber" src="/static/throbber.gif" alt="Loading..." />
+                <p>Adding a new pin...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('reelForm').onsubmit = function() {
+        document.getElementById('loadingMessage').style.display = 'block';
+    };
+    
+    window.onload = function() {
+        if (document.querySelector('.alert-info') || document.querySelector('.alert-danger')) {
+            document.getElementById('loadingMessage').style.display = 'none';
+        }
+    };
+    </script>
+{% endblock %}
+

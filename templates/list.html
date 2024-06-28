@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+| Pins
+{% endblock %}
+
+{% block main %}
+<div class="list">
+    <div class="content_list">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>
+                        {% if request.args.get('city', '') %}
+                            {{ request.args.get('city') }}
+                        {% else %}
+                            City
+                        {% endif %}
+                        <div class="custom-select-wrapper">
+                            <select id="citySelect" class="custom-select">
+                                <option value="">All Cities</option>
+                                {% for city in unique_cities %}
+                                <option value="{{ city }}" {% if city == request.args.get('city', '') %}selected{% endif %}>{{ city }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="citySelect" class="custom-select-trigger">▼</label>
+                        </div>
+                    </th>
+                    <th>
+                        {% if request.args.get('cuisine', '') %}
+                            {{ request.args.get('cuisine') }}
+                        {% else %}
+                            Cuisine
+                        {% endif %}
+                        <div class="custom-select-wrapper">
+                            <select id="cuisineSelect" class="custom-select">
+                                <option value="">All Cuisines</option>
+                                {% for cuisine in unique_cuisines %}
+                                <option value="{{ cuisine }}" {% if cuisine == request.args.get('cuisine', '') %}selected{% endif %}>{{ cuisine }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="cuisineSelect" class="custom-select-trigger">▼</label>
+                        </div>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for url in urls %}
+                <tr id="row-{{ url.id }}">
+                    <td>{{ url.name }}</td>
+                    <td>{{ url.location }}</td>
+                    <td>{{ url.city }}</td>
+                    <td>{{ url.cuisine }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_url', url_id=url.id) }}" method="post">
+                            <button type="submit" class="btn btn-danger btn-round">X</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('.custom-select-trigger').forEach(trigger => {
+        trigger.addEventListener('click', function() {
+            var select = this.previousElementSibling;
+            select.focus(); // Focus the select element
+        });
+    });
+
+    document.querySelectorAll('.custom-select').forEach(select => {
+        select.addEventListener('change', function() {
+            window.location.href = updateQueryStringParameter(window.location.href, this.id.replace('Select', ''), this.value);
+        });
+    });
+
+    function updateQueryStringParameter(uri, key, value) {
+        var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + value + '$2');
+        }
+        else {
+            return uri + separator + key + "=" + value;
+        }
+    }
+</script>    
+{% endblock %}

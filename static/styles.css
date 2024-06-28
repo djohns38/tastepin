@@ -1,0 +1,263 @@
+@font-face {
+  font-family: 'Candice';
+  src: url('/static/candice.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --background-light: rgba(255, 255, 255, 0.95);
+}
+
+html, body {
+  height: 100%;
+  width:100%;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+}
+
+.logo{
+  font-family: 'Candice', cursive;
+  color: #004F6D;
+  font-size: 3.5vh;
+}
+
+nav {
+  width: 100%;
+  z-index: 1050;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  vertical-align: baseline;
+}
+
+.content {
+  background: rgba(255, 255, 255, 0.95);
+  margin: auto;
+  max-width: 100%;
+}
+
+.loadingMessage{
+  padding-top: 25px;
+}
+
+.throbber{
+  padding-bottom: 5px;
+}
+
+.content_list {
+  background: rgba(255, 255, 255, 0.95);
+  margin: auto;
+  max-width: 80%;
+  border-radius: 10px;
+}
+
+.content_map {
+  background: rgba(255, 255, 255, 0.95);
+  margin: auto;
+  max-width: 80%;
+  border-radius: 10px;
+}
+
+.index {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.list {
+  padding-top: 5%;
+}
+
+.input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon input[type="text"] {
+  width: 100%;
+  padding-right: 10%;
+  padding-left: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+}
+
+.btn-circle {
+  position: absolute;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: #004F6D;
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+#map {
+  height: 500px;
+  margin: 20px 25%;
+}
+
+
+.hero{
+   padding-bottom: 10%;
+   font-size: 7vh;
+   text-align: left;
+   font-weight: bold;
+   color: #004F6D;
+   font-family: Helvetica, sans-serif;
+}
+
+.subhero{
+  padding-bottom: 10%;
+  font-size: 3vh;
+  text-align: left;
+  color: #004F6D;
+  font-family: Helvetica, sans-serif;
+}
+
+.left-index img{
+  height: 100%;
+  width: auto;
+}
+
+.left-index {
+  padding-top: 4%;
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.right-index {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  padding-right: 8%;
+  padding-left: 5%;
+}
+
+.table{
+  color: #004F6D;
+}
+
+.about {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.left-about {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding-top: 6%;
+  justify-content: flex-start;
+}
+
+.left-about img{
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+
+.right-about {
+  position: absolute;
+  left: 50%;
+  flex: 1;
+  text-align: center;
+  padding-right: 8%;
+  padding-left: 8%;
+  padding-top: 12%;
+  color: #004F6D;
+}
+
+.about-header {
+  padding-bottom: 10%;
+  font-size: 6vh;
+  font-weight: bold;
+  color: #004F6D;
+  font-family: Helvetica, sans-serif;
+}
+
+.about-body {
+  font-size: 2.5vh;
+  color: #004F6D;
+  font-family: Helvetica, sans-serif;
+  text-align: center;
+}
+
+.row{
+  padding-right: 10%;
+  padding-top: 5%;
+  color: #004F6D;
+}
+
+.btn-round {
+  border-radius: 50%;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: auto;
+}
+
+.custom-select {
+  opacity: 0; /* Make the select element invisible */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.custom-select-trigger {
+  position: relative;
+  display: block;
+  padding: 5px 10px; /* Adjust padding as needed */
+  cursor: pointer;
+  background-color: transparent;
+  border: none; /* No border around the arrow */
+  text-align: right;
+  font-size: 16px; /* Adjust font size as needed */
+}
+
+/* Custom arrow styling */
+.custom-select-trigger::after {
+  position: absolute;
+  right: 5px; /* Adjust position as needed */
+  top: 60%;
+  transform: translateY(-50%);
+}
+
+.table th {
+  white-space: nowrap;
+  vertical-align: middle;
+}
